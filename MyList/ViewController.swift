@@ -6,8 +6,11 @@
 //
 
 import UIKit
+import CoreData
 
 class ViewController: UIViewController {
+
+    var person: [NSManagedObject] = []
 
     var todo: [String] = []
     @IBAction func btnAgregar(_ sender: Any) {
@@ -48,12 +51,13 @@ class ViewController: UIViewController {
 
 extension ViewController:UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return todo.count
+        return person.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for:indexPath)
-        cell.textLabel?.text = todo[indexPath.row]
+        let persona = person[indexPath.row]
+        cell.textLabel?.text = persona.value(forKeyPath: "name") as! String
         return cell
     }
     
